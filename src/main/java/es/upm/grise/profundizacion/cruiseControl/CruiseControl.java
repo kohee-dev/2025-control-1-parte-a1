@@ -13,14 +13,22 @@ public class CruiseControl {
 	public CruiseControl(Speedometer speedometer) {
 		
 		this.speedometer = speedometer;
+        this.speedSet = null;
+        this.speedLimit = null;
 
 	}
 	
 	/*
 	 * Method to code
 	 */
-	public void setSpeedSet(int speedSet) {
-		
+	public void setSpeedSet(int speedSet) throws IncorrectSpeedSetException, SpeedSetAboveSpeedLimitException {
+		if (speedSet < 0) {
+            throw new IncorrectSpeedSetException();
+        }
+        if (this.speedLimit != null && speedSet > this.speedLimit) {
+            throw new SpeedSetAboveSpeedLimitException();
+        }
+        this.speedSet = speedSet;
 	}
 
 	/*
